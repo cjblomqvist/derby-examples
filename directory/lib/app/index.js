@@ -7,8 +7,8 @@ derby.use(require('../../ui'))
 
 var pages = [
   {url: '/', title: 'Home'}
-, {url: '/people', title: 'People'}
-, {url: '/people/new', title: 'Add somebody'}
+, {url: '/people', title: 'People', requires_access: true}
+, {url: '/people/new', title: 'Add somebody', requires_access: true}
 ]
 
 function render(name, page) {
@@ -87,4 +87,8 @@ app.ready(function(model) {
       history.back()
     }) 
   }
+  
+  // Should most likely be removed when 0.3.13 is released
+  model.set('_session.access', ( typeof JSON.parse( document.getElementById('session').innerHTML ).access !== 'undefined' ) );
+  
 })

@@ -2,5 +2,18 @@
   <div class="hero-unit">
     <h1>Directory</h1>
     <p>The directory has a listing of some people.</p>
-    <p><a class="btn btn-primary btn-large" href="/people/new">Add somebody &raquo;</a></p>
+    
+    <!-- Should most likely be changed to session and not _session when 0.3.13 is released -->
+    {#unless _session.access}
+      <form class="well" action="/" method="POST">
+        <input type="text" class="span3" name="username" placeholder="Username (e.g. 'root')" /><br/>
+        <input type="text" class="span3" name="password" placeholder="Password (e.g. 'root')" /><br/>
+        <button type="submit" class="btn">Login</button>
+      </form>
+    {else}
+      <p><a class="btn btn-primary btn-large" href="/people/new">Add somebody &raquo;</a></p>
+    {/}
+    
+    <!-- Far from optimal, but with the way Derby currently handles sessions client side it's the best solution I could think of right now -->
+    <div id="session" style="display: none;">{{session}}</div>
   </div>
